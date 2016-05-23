@@ -7,7 +7,6 @@ instance/
 
 # Component folders
 node_modules/
-bower_components/
 
 #Python
 .pyc
