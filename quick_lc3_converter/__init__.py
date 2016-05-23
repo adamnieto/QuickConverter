@@ -4,5 +4,3 @@ from os import getenv
 from flask import Flask, render_template, request, url_for, Markup
 
 app = Flask(__name__)
-
-import hexAndLC3, binaryAndLC3

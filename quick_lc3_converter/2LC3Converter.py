@@ -29,12 +29,21 @@ def trapVectors(vector):
 
 def getNZP(num):
     nzpDict = {
-            "000":"", "100":"n","010":"z", "001":"p", "110":"nz","111":"nzp",
-            "011":"zp", "101":"np",
+            "000":"",
+            "100":"n",
+            "010":"z",
+            "001":"p",
+            "110":"nz",
+            "111":"nzp",
+            "011":"zp",
+            "101":"np",
             }
     result = nzpDict.get(num,"-1")
     return result
 
+def getRegister(registerCand):
+    return "R" + bin2Dec(registerCand)
+    
 def bin2Dec(binaryNumber):
     decimal = 0
     index = 0
@@ -46,10 +55,7 @@ def bin2Dec(binaryNumber):
         index += 1
     return str(decimal)
 
-def getRegister(registerCand):
-    return "R" + bin2Dec(registerCand)
-
-def immdConverter(number):
+def signedBin2Dec(number):
     if number[0] is '1':
         # need to do two's complement!
         # zero needs to be there because
@@ -90,7 +96,7 @@ def immdConverter(number):
 
 def pcOffset(offset, pc):
     # converts to decimal then converts to hex
-    number = hex(int(immdConverter(offset)[1:]) +
+    number = hex(int(signedBin2Dec(offset)[1:]) +
            int("0x" + pc,16)).upper()[2:]
     return "x" + str(number)
 
@@ -151,18 +157,17 @@ def hex2Bin(hexString):
             binary += binaryVersion
     return binary
 
-def bin2LC3(hexString, pc):
+def bin2LC3(binNum, pc):
     lc3Exprsn = ""
-    binNum = hex2Bin(hexString).strip(" ")
     getExpression = {
       "add1":"ADD " + getRegister(binNum[4:7]) + ", " +
       getRegister(binNum[7:10]) + ", " + getRegister(binNum[13:16]),
       "add2":"ADD " + getRegister(binNum[4:7]) + ", " +
-      getRegister(binNum[7:10]) + ", " + immdConverter(binNum[11:16]),
+      getRegister(binNum[7:10]) + ", " + signedBin2Dec(binNum[11:16]),
       "and1":"AND " + getRegister(binNum[4:7]) + ", " +
       getRegister(binNum[7:10]) + ", " + getRegister(binNum[13:16]),
       "and2":"AND " + getRegister(binNum[4:7]) + ", " +
-      getRegister(binNum[7:10]) + ", " + immdConverter(binNum[11:16]),
+      getRegister(binNum[7:10]) + ", " + signedBin2Dec(binNum[11:16]),
       "br":"BR" + getNZP(binNum[4:7]) + " " + pcOffset(binNum[7:16],pc),
       "jmp":"JMP " + getRegister(binNum[7:10]),
       "jsr":"JSR " + pcOffset(binNum[5:16],pc),
@@ -171,7 +176,7 @@ def bin2LC3(hexString, pc):
       "ldi":"LDI " + getRegister(binNum[4:7]) + ", " +
       pcOffset(binNum[7:16],pc),
       "ldr":"LDR " + getRegister(binNum[4:7]) + ", " +
-      getRegister(binNum[7:10]) + ", " + immdConverter(binNum[10:16]),
+      getRegister(binNum[7:10]) + ", " + signedBin2Dec(binNum[10:16]),
       "lea":"LEA " + getRegister(binNum[4:7]) + ", " +
       pcOffset(binNum[7:16],pc),
       "not":"NOT " + getRegister(binNum[4:7]) + ", " +
@@ -182,7 +187,7 @@ def bin2LC3(hexString, pc):
       "sti":"STI " + getRegister(binNum[4:7]) + ", " +
       pcOffset(binNum[7:16],pc),
       "str":"STR " + getRegister(binNum[4:7]) + ", " +
-      getRegister(binNum[7:10]) + ", " + immdConverter(binNum[10:16]),
+      getRegister(binNum[7:10]) + ", " + signedBin2Dec(binNum[10:16]),
       "trap":simplifyTraps("TRAP " + trapVectors(binNum[8:16]))
       }
     binCheck = checkBinary(binNum)
@@ -195,4 +200,8 @@ def bin2LC3(hexString, pc):
     else:
         return "Something is wrong with the format of the input."
 
-print(bin2LC3("C100","3007"))
+def hex2LC3(hexString, pc):
+    binNum = hex2Bin(hexString).strip(" ")
+    return bin2LC3(binNum, pc)
+
+# print(bin2LC3("0203","3006"))
