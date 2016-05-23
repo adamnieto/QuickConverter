@@ -1,5 +1,14 @@
 import re
 
+def pcCheck(pc):
+    #'^' and '$' match the string exactly
+    pattern = re.compile("^[0-1A-F]{4}$")
+    case = bool(re.search(pattern, binString))
+    if case:
+        return case
+    else:
+        return False
+
 def binCheck(binString):
     #'^' and '$' match the string exactly
     pattern = re.compile("^[0-1]{16}$")
@@ -18,9 +27,9 @@ def hexCheck(hexString):
     else:
         return False
 
-def driver(hexString, binString):
+def driver(hexString, binString, pc):
     if hexString != "":
-        if hexCheck(hexString):
+        if hexCheck(hexString.lower()):
             return hexString
         else:
             return "-1"
@@ -31,8 +40,10 @@ def driver(hexString, binString):
             return binString
         else:
             return "-1"
+    elif pc != "":
+        if pcCheck(pc.upper())
     else:
         # This means no input was given just empty strings
         return "-2"
 
-driver("0xffff","0001 0000 0001 1111")
+driver("0xffff","0001 0000 0001 1111","x3000")
