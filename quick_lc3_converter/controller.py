@@ -9,7 +9,7 @@ Author: Adam Nieto
 
 """
 
-errorStatus = ""
+global errorStatus = ""
 
 
 def getErrorStatus():
