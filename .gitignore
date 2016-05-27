@@ -1,0 +1,13 @@
+# virtualenv
+venv/
+ENV/
+
+# Flask instance folder
+instance/
+
+# Component folders
+node_modules/
+
+#Python
+.pyc
+__pycache__/

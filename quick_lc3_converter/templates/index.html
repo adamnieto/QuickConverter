@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Site Properties -->
+    <title>Quick Converter</title>
+    <link rel="stylesheet" href="{{ url_for('bower.static', filename='semantic/dist/semantic.min.css') }}">
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    {% endblock %}
+    {% endblock %}
+</head>
+<body>
+    {% block navigation %}
+    <div class="ui blue huge fixed menu">
+        <a class="active item">
+            Quick Converter (alpha)
+        </a>
+    </div>
+    {% endblock %}
+    {% block content %}
+    <div class="ui container">
+        <h1 id="title">Quick Converter</h1>
+        <div class="ui segments">
+            <div class="ui segment">
+                <p>Pick a conversion</p>
+            </div>
+            <div class="ui secondary segment">
+                <div class="ui form">
+                    <div class="field">
+                        <label>Conversion</label>
+                        <select class="ui search dropdown">
+                            <option value="0"></option>
+                            <option value="1">Hex to LC-3</option>
+                            <option value="2">Binary to LC-3</option>
+                            <option value="3">Hex to Binary</option>
+                            <option value="4">Binary to Hex</option>
+                            <option value="5">Hex to Decimal</option>
+                            <option value="6">Binary to Decimal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if errorStatus == 'error1' %}
+        <div name="error1" class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Error:
+            </div>
+            <p>{{errorBox1}}</p>
+        </div>
+        {% else %}
+        <div name="error1" class="ui hidden negative message"></div>
+        {% endif %}
+        <div id="hidden1" class="ui hidden segments">
+            <div class="ui segment">
+                <h3>Hex to LC-3:</h3>
+            </div>
+            <div class="ui secondary segment">
+                <form action="{{ url_for('test') }}" method="POST">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>Hex:</h3>
+                                <input name="hexLC3Box1" id="hexLC3Box1" placeholder="eg. xE032" type="text" value="{{request.form['hexLC3Box1'] }}">
+                            </div>
+                            <div class="field">
+                                <h3>LC-3 Code:</h3>
+                                <input placeholder="eg. HALT" readonly="" type="text" value="{{hex2LC3Box2}}">
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>PC (if needed):</h3>
+                                <p>Remember that PC is one more then current memory address</p>
+                                <input name="pcBox1" value="{{request.form['pcBox1'] }}" id="pcBox1" placeholder="eg. x3002" type="text">
+                            </div>
+                        </div>
+                        <button class="ui blue large button" name="button" value="module1" id="button1" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if errorStatus == "error2" %}
+        <div name="error2" class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Error:
+            </div>
+            <p>{{errorBox2}}</p>
+        </div>
+        {% else %}
+        <div name="error2" class="ui hidden negative message"></div>
+        {% endif %}
+        <div id="hidden2" class="ui hidden segments">
+            <div class="ui segment">
+                <h3>Binary to LC-3:</h3>
+            </div>
+            <div class="ui secondary segment">
+                <form method="POST" action="{{ url_for('test') }}">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>Binary:</h3>
+                                <input name="binLC3Box1" id="binLC3Box1" value="{{request.form['binLC3Box1'] }}" placeholder="eg. 0001000111000001" type="text">
+                            </div>
+                            <div class="field">
+                                <h3>LC-3 Code:</h3>
+                                <input placeholder="eg. HALT" readonly="" type="text" value="{{ bin2LC3Box2 }}">
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>PC (if needed):</h3>
+                                <p>Remember that PC is one more then current memory address</p>
+                                <input name="pcBox2" id="pcBox2" value="{{request.form['pcBox2'] }}" placeholder="eg. x3002" type="text">
+                            </div>
+                        </div>
+                        <button class="ui blue large button" name="button" value="module2" id="button2" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if "error3" in errorStatus %}
+        <div name="error3" class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Error:
+            </div>
+            <p>{{errorBox3}}</p>
+        </div>
+        {% else %}
+        <div name="error3" class="ui hidden negative message"></div>
+        {% endif %}
+        <div id="hidden3" class="ui hidden segments">
+            <div class="ui segment">
+                <h3>Hex to Binary:</h3>
+            </div>
+            <div class="ui secondary segment">
+                <form method="POST" action="{{ url_for('test') }}">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>Hex:</h3>
+                                <input name="hexBinBox1" id="hexBinBox1" value="{{ request.form['hexBinBox1'] }}" placeholder="eg. xE032" type="text">
+                            </div>
+                            <div class="field">
+                                <h3>Binary:</h3>
+                                <input placeholder="eg. 0001000111000001" readonly="" type="text" value="{{hexBinBox2}}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button class="ui blue large button" name="button" id="button3" value="module3" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if errorStatus == "error4" %}
+        <div id="error4" class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Error:
+            </div>
+            <p>{{errorBox4}}</p>
+        </div>
+        {% else %}
+        <div id="error4" class="ui hidden negative message"></div>
+        {% endif %}
+        <div id="hidden4" class="ui hidden segments">
+            <div class="ui segment">
+                <h3>Binary to Hex:</h3>
+            </div>
+            <div class="ui secondary segment">
+                <form method="POST" action="{{ url_for('test') }}">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>Binary:</h3>
+                                <input name="binHexBox1" id="binHexBox1" placeholder="eg. 0001000111000001" type="text" value="{{ request.form['binHexBox1'] }}">
+                            </div>
+                            <div class="field">
+                                <h3>Hex:</h3>
+                                <input placeholder="eg. xE032" readonly="" type="text" value="{{binHexBox2}}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button class="ui blue large button" name="button" id="button4" value="module4" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if errorStatus == "error5" %}
+        <div id="error5" class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Error:
+            </div>
+            <p>{{errorBox5}}</p>
+        </div>
+        {% else %}
+        <div id="error5" class="ui hidden negative message"></div>
+        {% endif %}
+        <div id="hidden5" class="ui hidden segments">
+            <div class="ui segment">
+                <h3>Hex to Decimal:</h3>
+            </div>
+            <div class="ui secondary segment">
+                <form method="POST" action="{{ url_for('test') }}">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>Hex:</h3>
+                                <input name="hexDecBox1" id="hexDecBox1" placeholder="eg. xE032" type="text"
+                                value="{{ request.form['hexDecBox1'] }}">
+                            </div>
+                            <div class="field">
+                                <h3>Decimal:</h3>
+                                <input placeholder="eg. 3" readonly="" type="text" value="{{hexDecBox2}}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button class="ui blue large button" name="button" id="button5" value="module5" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if errorStatus == "error6" %}
+        <div name="error6" id="error6" class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Error:
+            </div>
+            <p>{{errorBox6}}</p>
+        </div>
+        {% else %}
+        <div id="error6" class="ui hidden negative message"></div>
+        {% endif %}
+        <div id="hidden6" class="ui hidden segments">
+            <div class="ui segment">
+                <h3>Binary to Decimal:</h3>
+            </div>
+            <div class="ui secondary segment">
+                <form method="POST" action="{{ url_for('test') }}">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <h3>Binary:</h3>
+                                <input name="binDecBox1" id="binDecBox1" placeholder="eg. 0001000111000001" type="text" value="{{ request.form['binDecBox1'] }}">
+                            </div>
+                            <div class="field">
+                                <h3>Decimal:</h3>
+                                <input placeholder="eg. 3" readonly="" type="text" value="{{ binDecBox2 }}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button class="ui blue large button" name="button" id="button6" value="module6" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block footer %}{% endblock %}
+    {% block scripts %}
+    <script src="{{ url_for('bower.static', filename='jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('bower.static', filename='semantic/dist/semantic.min.js') }}"></script>
+    <script>
+    $('.message .close').on('click', function() {
+        $(this).closest('.message').transition('fade');
+    });
+    $('select.dropdown').dropdown({
+        onChange: function(value){
+            if ($('select').val() == "0"){
+                $('#hidden1').toggleClass("hidden", true);
+                $('#hidden2').toggleClass("hidden", true);
+                $('#hidden3').toggleClass("hidden", true);
+                $('#hidden4').toggleClass("hidden", true);
+                $('#hidden5').toggleClass("hidden", true);
+                $('#hidden6').toggleClass("hidden", true);
+            };
+            if ($('select').val() == "1"){
+                $('#hidden1').toggleClass("hidden", false);
+                $('#hidden2').toggleClass("hidden", true);
+                $('#hidden3').toggleClass("hidden", true);
+                $('#hidden4').toggleClass("hidden", true);
+                $('#hidden5').toggleClass("hidden", true);
+                $('#hidden6').toggleClass("hidden", true);
+            };
+            if ($('select').val() == "2"){
+                $('#hidden2').toggleClass("hidden");
+                $('#hidden1').toggleClass("hidden", true);
+                $('#hidden3').toggleClass("hidden", true);
+                $('#hidden4').toggleClass("hidden", true);
+                $('#hidden5').toggleClass("hidden", true);
+                $('#hidden6').toggleClass("hidden", true);
+            };
+            if ($('select').val() == "3"){
+                $('#hidden3').removeClass("hidden");
+                $('#hidden1').toggleClass("hidden", true);
+                $('#hidden2').toggleClass("hidden", true);
+                $('#hidden4').toggleClass("hidden", true);
+                $('#hidden5').toggleClass("hidden", true);
+                $('#hidden6').toggleClass("hidden", true);
+            };
+            if ($('select').val() == "4"){
+                $('#hidden4').removeClass("hidden");
+                $('#hidden1').toggleClass("hidden", true);
+                $('#hidden2').toggleClass("hidden", true);
+                $('#hidden3').toggleClass("hidden", true);
+                $('#hidden5').toggleClass("hidden", true);
+                $('#hidden6').toggleClass("hidden", true);
+            };
+            if ($('select').val() == "5"){
+                $('#hidden5').removeClass("hidden");
+                $('#hidden1').toggleClass("hidden", true);
+                $('#hidden2').toggleClass("hidden", true);
+                $('#hidden3').toggleClass("hidden", true);
+                $('#hidden4').toggleClass("hidden", true);
+                $('#hidden6').toggleClass("hidden", true);
+            };
+            if ($('select').val() == "6"){
+                $('#hidden6').removeClass("hidden");
+                $('#hidden1').toggleClass("hidden", true);
+                $('#hidden2').toggleClass("hidden", true);
+                $('#hidden3').toggleClass("hidden", true);
+                $('#hidden4').toggleClass("hidden", true);
+                $('#hidden5').toggleClass("hidden", true);
+            };
+        }
+    });
+    </script>
+    {% endblock %}
+</body>
+</html>
