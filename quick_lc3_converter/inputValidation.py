@@ -46,9 +46,9 @@ def binDriver(binString):
         if binCheck(binString):
             return binString
         else:
-            return "ERR: Something wrong with format of binary value."
+            return "ERR: Something wrong with format of binary value. It must be exactly 16 digits long."
     else:
-        return "ERR: There was no input for Hex! Please try again."
+        return "ERR: There was no input for Binary! Please try again."
 def pcDriver(pc):
     if pc != "":
         if pcCheck(pc.upper()):

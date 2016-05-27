@@ -72,15 +72,15 @@ def module2():
 def module3():
     global errorStatus
     errorBox3 = ""
-    hex2BinBox1 = request.form["hexBinBox1"]
-    hex2BinBox2 = ""
-    inputVald = hexDriver(hex2BinBox1)
+    hexBinBox1 = request.form["hexBinBox1"]
+    hexBinBox2 = ""
+    inputVald = hexDriver(hexBinBox1)
     if "ERR" in inputVald:
         errorStatus = "error3"
         errorBox3 = inputVald
         return errorBox3
     else:
-        result = hex2Bin(hex2BinBox1)
+        result = hex2Bin(hexBinBox1)
         if "ERR" in result:
             errorStatus = "error3"
             errorBox3 = result
@@ -93,59 +93,59 @@ def module3():
 def module4():
     global errorStatus
     errorBox4 = ""
-    bin2HexBox1 = request.form["binHexBox1"]
-    bin2HexBox2 = ""
-    inputVald = binDriver(bin2HexBox1)
+    binHexBox1 = request.form["binHexBox1"]
+    binHexBox2 = ""
+    inputVald = binDriver(binHexBox1)
     if "ERR" in inputVald:
         errorStatus = "error4"
         errorBox4 = inputVald
         return errorBox4
     else:
-        result = bin2Hex(bin2HexBox1)
+        result = bin2Hex(binHexBox1)
         if "ERR" in result:
             errorStatus = "error4"
             errorBox4 = result
             return errorBox4
         else:
-            bin2HexBox2 = result
-            return bin2HexBox2
+            binHexBox2 = result
+            return binHexBox2
 
 def module5():
     global errorStatus
     errorBox5 = ""
-    hex2DecBox1 = request.form["hexDecBox1"]
-    hex2DecBox2 = ""
-    inputVald = hexDriver(hex2DecBox1)
+    hexDecBox1 = request.form["hexDecBox1"]
+    hexDecBox2 = ""
+    inputVald = hexDriver(hexDecBox1)
     if "ERR" in inputVald:
         errorStatus = "errorBox5"
         errorBox5 = inputVald
         return errorBox5
     else:
-        result = hex2Dec(hex2DecBox1)
+        result = hex2Dec(hexDecBox1)
         if "ERR" in result:
             errorStatus = "errorBox5"
             errorBox5 = result
             return errorBox5
         else:
-            hex2DecBox2 = result
-            return hex2DecBox2
+            hexDecBox2 = result
+            return hexDecBox2
 
 def module6():
     global errorStatus
     errorBox6 = ""
-    bin2DecBox1 = request.form["binDecBox1"]
-    bin2DecBox2 = ""
-    inputVald = binDriver(bin2DecBox1)
+    binDecBox1 = request.form["binDecBox1"]
+    binDecBox2 = ""
+    inputVald = binDriver(binDecBox1)
     if "ERR" in inputVald:
         errorStatus = "error6"
         errorBox6 = inputVald
         return errorBox6
     else:
-        result = signedBin2Dec(bin2DecBox1)
+        result = signedBin2Dec(binDecBox1)
         if "ERR" in result:
             errorStatus = "error6"
             errorBox6 = result
             return errorBox6
         else:
-            bin2DecBox2 = result
-            return bin2DecBox2
+            binDecBox2 = result[1:] # get rid of "#"
+            return binDecBox2

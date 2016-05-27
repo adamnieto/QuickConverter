@@ -95,7 +95,7 @@ def signedBin2Dec(number):
         return finalResult
 
 def pcOffset(offset, pc):
-    if "x" or "X" in pc:
+    if "x" in pc or "X" in pc:
         pc = pc[1:]
     # converts to decimal then converts to hex
     number = hex(int(signedBin2Dec(offset)[1:]))[2:]
@@ -134,11 +134,11 @@ def checkBinary(binaryNumber):
     return answer
 
 def bin2Hex(binNum):
-    result = hex(int(binNum, 2))[1:]
+    result = "x" + hex(int(binNum, 2))[2:].upper()
     return result
 
 def hex2Bin(hexString):
-    if "x" or "X" in hexString:
+    if "x" in hexString or "X" in hexString:
         temp = hexString.upper()[1:]
     else:
         temp = hexString.upper()
