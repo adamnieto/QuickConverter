@@ -39,7 +39,6 @@ def module1():
     else:
         result = hex2LC3(hex2LC3Box1, pcBox1)
         if "ERR" in result:
-            global errorStatus
             errorStatus = 'error1'
             errorBox1 = result
             return errorBox1
@@ -62,7 +61,6 @@ def module2():
     else:
         result = bin2LC3(bin2LC3Box1, pcBox2)
         if "ERR" in result:
-            global errorStatus
             errorStatus = "error2"
             errorBox2 = result
             return errorBox2
@@ -83,7 +81,6 @@ def module3():
     else:
         result = hex2Bin(hexBinBox1)
         if "ERR" in result:
-            global errorStatus
             errorStatus = "error3"
             errorBox3 = result
             return errorBox3
@@ -105,7 +102,6 @@ def module4():
     else:
         result = bin2Hex(binHexBox1)
         if "ERR" in result:
-            global errorStatus
             errorStatus = "error4"
             errorBox4 = result
             return errorBox4
@@ -126,7 +122,6 @@ def module5():
     else:
         result = hex2Dec(hexDecBox1)
         if "ERR" in result:
-            global errorStatus
             errorStatus = "errorBox5"
             errorBox5 = result
             return errorBox5
@@ -147,7 +142,6 @@ def module6():
     else:
         result = signedBin2Dec(binDecBox1)
         if "ERR" in result:
-            global errorStatus
             errorStatus = "error6"
             errorBox6 = result
             return errorBox6
