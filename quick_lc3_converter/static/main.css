@@ -1,0 +1,16 @@
+/* main.css */
+
+/*=======Backdrop=========*/
+body{
+    background-color: rgba(52,209,125,0.5);
+}
+
+/*=======Body=========*/
+#title {
+    text-align: center;
+    font-size: 50px;
+    padding-top: 70px;
+}
+#segments {
+    background-color: rgba(138,138,138, 0.5);
+}

@@ -5,8 +5,8 @@ Author: Adam Nieto
 """
 def pcCheck(pc):
     #'^' and '$' match the string exactly
-    pattern = re.compile("^[0-1A-F][0-1A-F][0-1A-F][0-1A-F]$")
-    case = bool(re.search(pattern, binString))
+    pattern = re.compile("^([X][0-9A-F][0-9A-F][0-9A-F][0-9A-F])$")
+    case = bool(re.search(pattern, pc))
     if case:
         return case
     else:
@@ -30,7 +30,7 @@ def hexCheck(hexString):
     else:
         return False
 
-def driver(hexString, binString, pc):
+def hexDriver(hexString):
     if hexString != "":
         if 'x' not in hexString.lower():
             hexString = "x" + hexString
@@ -38,18 +38,22 @@ def driver(hexString, binString, pc):
             # return hexString without the x and as uppercase.
             return hexString.upper()[1:]
         else:
-            return "Something wrong with format of hex-value."
-    elif binString != "":
+            return "ERR: Something wrong with format of hex-value."
+    else:
+        return "ERR: There was no input! Please try again."
+def binDriver(binString):
+    if binString != "":
         if binCheck(binString):
             return binString
         else:
-            return "Something wrong with format of binary value."
-    elif pc != "":
+            return "ERR: Something wrong with format of binary value."
+    else:
+        return "ERR: There was no input for Hex! Please try again."
+def pcDriver(pc):
+    if pc != "":
         if pcCheck(pc.upper()):
             return pc.upper()
         else:
-            return "Something wrong with format of the PC counter hex-value."
+            return "ERR: Something wrong with format of the PC counter hex-value."
     else:
-        return "Something is wrong. No input was given."
-
-driver("0xffff","0001 0000 0001 1111","x3000")
+        return ""

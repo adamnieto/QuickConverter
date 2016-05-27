@@ -1,0 +1,2 @@
+1. Need to fix the error messages and make sure they go away once your press the red x
+2. Need to ensure that all of modules work.

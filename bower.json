@@ -1,0 +1,20 @@
+{
+  "name": "LC3Converter",
+  "homepage": "https://github.com/adamnieto/QuickLC3Converter",
+  "authors": [
+    "Adam Nieto"
+  ],
+  "description": "Converts hex and binary to LC3 code.",
+  "main": "app.py",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "semantic-ui#^2.1.8"
+  }
+}
