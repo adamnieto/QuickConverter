@@ -56,4 +56,4 @@ def pcDriver(pc):
         else:
             return "ERR: Something wrong with format of the PC counter hex-value."
     else:
-        return ""
+        return "3000"

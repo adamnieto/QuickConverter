@@ -32,7 +32,7 @@ def module1():
             return errorBox1
         elif "ERR" in inputVald1:
             errorBox1 = inputVald1
-            return errorBox1
+            return errorBox1    
         else:
             errorBox1 = inputVald2
             return errorBox1
