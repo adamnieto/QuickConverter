@@ -56,4 +56,4 @@ def pcDriver(pc):
         else:
             return "ERR: Something wrong with format of the PC counter hex-value."
     else:
-        return "3000"
+        return "ERR-WARN: This is not an error but warning. You did not add a PC to this conversion. A default PC of 'x3000' was used in thi conversion."

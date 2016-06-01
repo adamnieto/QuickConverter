@@ -4,6 +4,9 @@ from flask.ext.bower import Bower
 from toLC3Converter import hex2LC3, bin2LC3, hex2Bin, bin2Hex, hex2Dec, signedBin2Dec
 from inputValidation import hexDriver, binDriver, pcDriver
 
+"""TODO NEED TO FIX ERROR MESSAGES. SOMETING WRONG WITH IF STATMENTS WITH ERROR BOXES COMPARE FIRST MODULE ERRORS WITH REST"""
+
+
 """
 Author: Adam Nieto
 
@@ -32,10 +35,20 @@ def module1():
             return errorBox1
         elif "ERR" in inputVald1:
             errorBox1 = inputVald1
-            return errorBox1    
-        else:
-            errorBox1 = inputVald2
             return errorBox1
+        else:
+            if "WARN" in inputVald2:
+                result = hex2LC3(hex2LC3Box1, "x3000")
+                if "ERR" in result:
+                    errorStatus = 'error1'
+                    errorBox1 = result
+                    return errorBox1
+                else:
+                    hex2LC3Box2 = result
+                    return hex2LC3Box2
+            else:
+                errorBox1 = inputVald2
+                return errorBox1
     else:
         result = hex2LC3(hex2LC3Box1, pcBox1)
         if "ERR" in result:
@@ -56,8 +69,25 @@ def module2():
     if "ERR" in inputVald1 or "ERR" in inputVald2:
         global errorStatus
         errorStatus = "error2"
-        errorBox2 = inputVald1 + "\n" + inputVald2
-        return errorBox2
+        if "ERR" in inputVald1 and "ERR" in inputVald2:
+            errorBox2 = inputVald1 + "\n" + inputVald2
+            return errorBox2
+        elif "ERR" in inputVald1:
+            errorBox2 = inputVald1
+            return errorBox2
+        else:
+            if "WARN" in inputVald2:
+                result = bin2LC3(bin2LC3Box1, pcBox2)
+                if "ERR" in result:
+                    errorStatus = 'error2'
+                    errorBox2 = result
+                    return errorBox2
+                else:
+                    bin2LC3Box2 = result
+                    return bin2LC3Box2
+            else:
+                errorBox2 = inputVald2
+                return errorBox2
     else:
         result = bin2LC3(bin2LC3Box1, pcBox2)
         if "ERR" in result:
