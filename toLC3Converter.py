@@ -97,10 +97,11 @@ def signedBin2Dec(number):
 def pcOffset(offset, pc):
     if "x" in pc or "X" in pc:
         pc = pc[1:]
+    pcFinal = hex2Bin(pc)
+    result = hex(int(pcFinal,2) + int(offset, 2))[2:].upper()
     # converts to decimal then converts to hex
-    number = hex(int(signedBin2Dec(offset)[1:]))[2:]
-    # + int("0x" + pc, 16)).upper()[2:]
-    return "#" + str(number)
+    # offsetFinal = int(hex(int(signedBin2Dec(offset)[1:]))[2:], 16)
+    return "x" + str(result)
 
 def checkBinary(binaryNumber):
     criteria = {
@@ -218,5 +219,3 @@ def bin2LC3(binNum, pc):
 def hex2LC3(hexString, pc):
     binNum = hex2Bin(hexString).strip(" ")
     return bin2LC3(binNum, pc)
-
-# print(bin2LC3("0203","3006"))
