@@ -1,6 +1,4 @@
-## Requirements
-
-- Git
-- Python 3 (recommend 3.4)
+## quickConverter
+Converts LC3 assembly code, binary, and hex.
 
 ![alt tag](static/quickConverter.png "Example")
